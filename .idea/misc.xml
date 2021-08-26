@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/custom_loading.xml" value="0.20871327254305977" />
+        <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/custum_dialog.xml" value="0.23125" />
         <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/fragment_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/payment_fragment.xml" value="0.28802083333333334" />
+        <entry key="..\:/Proyecto Blackstone/PAXPayment/app/src/main/res/layout/payment_fragment.xml" value="0.5" />
       </map>
     </option>
   </component>

@@ -2,6 +2,7 @@ package com.example.paxpayment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.paxpayment.service.PosLinkSingleton;
+import com.example.paxpayment.util.LoadingDialog;
 import com.pax.poslink.PaymentRequest;
 import com.pax.poslink.PosLink;
 import com.pax.poslink.ProcessTransResult;
 import com.pax.poslink.base.BaseRequest;
+import com.pax.poslink.peripheries.POSLinkPrinter;
+import com.pax.poslink.peripheries.ProcessResult;
 
 public class PaymentFragment extends Fragment {
     private static final String TAG = "Tab1Frament";
@@ -31,6 +35,7 @@ public class PaymentFragment extends Fragment {
     private EditText etPaymentAmount;
 
     private PosLink link;
+    private LoadingDialog loadingDialog;
 
     @Nullable
     @Override
@@ -55,6 +60,8 @@ public class PaymentFragment extends Fragment {
 
         spPaymentEDCType.setAdapter(adapterEdc);
         spPaymentTransType.setAdapter(adapterType);
+
+        loadingDialog = new LoadingDialog(getActivity());
 
         btnPayment.setOnClickListener(v -> {
 
@@ -103,8 +110,31 @@ public class PaymentFragment extends Fragment {
 
             link.PaymentRequest = paymentRequest;
 
+            POSLinkPrinter printer = POSLinkPrinter.getInstance(getActivity().getApplicationContext());
+            printer.print("Probando los pros B)", POSLinkPrinter.CutMode.DO_NOT_CUT, new POSLinkPrinter.PrintListener() {
+                @Override
+                public void onSuccess() {
+                    System.out.println("success");
+                }
+
+                @Override
+                public void onError(ProcessResult processResult) {
+                    System.out.println("Error");
+                }
+            }, true);
+
+            loadingDialog.startLoadingDialog();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingDialog.dismissDialog();
+                }
+            }, 5000);
+
             new asyncRequest().execute(paymentRequest);
-            Toast.makeText(getActivity(), "Testeando Payment1", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getActivity(), "Testeando Payment1", Toast.LENGTH_SHORT).show();
+
         });
 
         return view;
